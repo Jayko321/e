@@ -41,7 +41,7 @@
 ##
 #############################################################################
 
-
+from localTypes import Student
 from PyQt6.QtCore import QDateTime, Qt, QTimer
 from PyQt6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDateTimeEdit,
         QDial, QDialog, QGridLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit,
