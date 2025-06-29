@@ -41,7 +41,7 @@
 ##
 #############################################################################
 
-from localTypes import Student
+from model import Student, db
 from PyQt6.QtCore import QDateTime, Qt, QTimer
 from PyQt6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDateTimeEdit,
         QDial, QDialog, QGridLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit,
@@ -50,9 +50,20 @@ from PyQt6.QtWidgets import (QApplication, QCheckBox, QComboBox, QDateTimeEdit,
         QVBoxLayout, QWidget)
 
 
+from pony.orm import *
+
+from utils.parsers import populate_db_from_excel # type: ignore
+
 class WidgetGallery(QDialog):
+    @db_session
     def __init__(self, parent=None):
         super(WidgetGallery, self).__init__(parent)
+        populate_db_from_excel()
+        #a = Student(MilitaryDistrict = "ЮВО", MilitaryUnitName = "", MilitaryUnitNumber = 123, IsConscript = False,
+                    #PersonalNumber = "", Rank = "", Surname = "", Name = "", Patronimic = "",
+                    #BirthDate = "01.01.1992", SNILS = 123, IsVeteran = True, Education = "", EducationalInstitution = "",
+                    #PhoneNumber = "", Faculty = 3, ArrivalDate = "01.06.2025", Post = "", BirthPlace = "", StateRewards = "",
+                    #DepartmentRewards = "", IsMarried = True, IsSMOMember = True)
 
         self.originalPalette = QApplication.palette()
 
@@ -109,7 +120,7 @@ class WidgetGallery(QDialog):
 
     def changePalette(self):
         if (self.useStylePaletteCheckBox.isChecked()):
-            QApplication.setPalette(QApplication.style().standardPalette())
+            QApplication.setPalette(QApplication.style().standardPalette()) # type: ignore
         else:
             QApplication.setPalette(self.originalPalette)
 
